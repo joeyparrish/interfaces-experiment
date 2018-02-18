@@ -1,0 +1,13 @@
+{
+  "name": "interfaces-experiment",
+  "description": "Experimenting with external plugin interfaces in the Closure Compiler",
+  "homepage": "https://github.com/joeyparrish/interfaces-experiment",
+  "author": "joeyparrish@google.com",
+  "dependencies": {
+    "google-closure-compiler": "^20180204.0.0"
+  },
+  "devDependencies": {},
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "private": true
+}
