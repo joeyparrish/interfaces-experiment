@@ -22,6 +22,8 @@ goog.require('iface');
  * @param {string} prefix
  * @constructor
  * @implements {iface}
+ * @export
+ * Exported in all versions so that we can check for renaming on the prototype.
  */
 impl = function(prefix) {
   /** @private {string} */
@@ -31,6 +33,9 @@ impl = function(prefix) {
 /**
  * @param {number} bar
  * @return {string}
+ * @export
+ * Exported to prevent inlining by the compiler, which would make it impossible
+ * to check for renaming issues.
  */
 impl.prototype.foo = function(bar) {
   return this.prefix_ + (bar * bar).toString();

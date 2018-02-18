@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-goog.provide('unrelated');
+goog.provide('impl');
 
 /**
+ * @param {string} prefix
  * @constructor
- * Implements the same method name as iface, but does not implement it.
- * This allows us to check if renaming affects all instances of a name.
+ * @implements {iface}
+ * @export
+ * Exported in all versions so that we can check for renaming on the prototype.
  */
-unrelated = function() {};
+impl = function(prefix) {
+  /** @private {string} */
+  this.prefix_ = prefix;
+};
 
 /**
  * @param {number} bar
  * @return {string}
+ * @export
  */
-unrelated.prototype.foo = function(bar) {
-  return (bar * bar * bar).toString();
+impl.prototype.foo = function(bar) {
+  return this.prefix_ + (bar * bar).toString();
 };

@@ -13,29 +13,37 @@ fi
 # Build the code.
 "$COMPILER" --generate_exports -O ADVANCED goog/base.js "$DIR"/*.js > "$DIR".compiled.js
 
-# Extract the console.log call from main.
-LOG_CALL=$(grep console.log "$DIR".compiled.js | sed -e 's/.*\(console.log(.*(12))\).*/\1/')
-
-# Check if the method access was renamed.  It should NOT be.
-if echo "$LOG_CALL" | grep -q 'foo('; then
-  OK=1
-  echo "SUCCESS: interface not renamed"
-else
-  OK=0
-  echo "FAIL: interface renamed"
-fi
+# Extract the parts of the compiled binary that we want to scrutinize.
+LOG_CALL=$(grep console.log "$DIR".compiled.js | sed -e 's/.*\(console\.log(.*(12))\).*/\1/')
+INFO_CALL=$(grep console.info "$DIR".compiled.js | sed -e 's/.*\(console\.info(.*(13))\).*/\1/')
+PROTOTYPE_FOO=$(grep prototype.foo "$DIR".compiled.js | sed -e 's/.*[^a-z]\([a-z]*\.prototype\.foo\).*/\1/')
 
 # Print the extracted text.
 echo "$LOG_CALL"
+# Check if the method access was renamed.  It should NOT be.
+if echo "$LOG_CALL" | grep -q 'foo('; then
+  echo "SUCCESS: interface access not renamed"
+else
+  echo "FAIL: interface access renamed"
+  exit 1
+fi
 
-# Check for a call to console.info.
-INFO_CALL=$(grep console.info "$DIR".compiled.js | sed -e 's/.*\(console.info(.*(13))\).*/\1/')
+# Print the extracted text.
+echo "$INFO_CALL"
+# Check if the unrelated method with the same name was renamed.  It SHOULD be.
+if echo "$INFO_CALL" | grep -q 'foo('; then
+  echo "FAIL: unrelated method not renamed"
+  exit 1
+else
+  echo "SUCCESS: unrelated method renamed"
+fi
 
-# If console.info call was found and the previous check passed, check for renaming here, too.
-if [ "$OK" = "1" && "$INFO_CALL" != "" ]; then
-  # Check if the method access was renamed.  It SHOULD be.
-  echo "$INFO_CALL" | grep -q 'foo(' && echo "FAIL: unrelated renamed" || echo "SUCCESS: unrelated still renamed"
-
-  # Print the extracted text.
-  echo "$INFO_CALL"
+# Print the extracted text.
+echo "$PROTOTYPE_FOO"
+# Check if the impl prototype was renamed.  It should NOT be.
+if echo "$PROTOTYPE_FOO" | grep -q 'foo'; then
+  echo "SUCCESS: impl exported or not renamed"
+else
+  echo "FAIL: impl renamed or missing"
+  exit 1
 fi

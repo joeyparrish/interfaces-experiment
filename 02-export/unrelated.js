@@ -18,6 +18,8 @@ goog.provide('unrelated');
 
 /**
  * @constructor
+ * Implements the same method name as iface, but does not implement it.
+ * This allows us to check if renaming affects all instances of a name.
  */
 unrelated = function() {};
 

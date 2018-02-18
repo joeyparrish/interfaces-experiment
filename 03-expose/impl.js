@@ -22,6 +22,8 @@ goog.require('iface');
  * @param {string} prefix
  * @constructor
  * @implements {iface}
+ * @export
+ * Exported in all versions so that we can check for renaming on the prototype.
  */
 impl = function(prefix) {
   /** @private {string} */

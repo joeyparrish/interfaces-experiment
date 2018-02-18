@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-goog.provide('unrelated');
+goog.require('unrelated');
 
 /**
- * @constructor
- * Implements the same method name as iface, but does not implement it.
- * This allows us to check if renaming affects all instances of a name.
+ * @param {iface} x
+ * @param {unrelated} y
+ * @export
  */
-unrelated = function() {};
-
-/**
- * @param {number} bar
- * @return {string}
- */
-unrelated.prototype.foo = function(bar) {
-  return (bar * bar * bar).toString();
+var main = function(x, y) {
+  console.log(x.foo(12));  // Plugin interface, should NOT be renamed
+  console.info(y.foo(13));  // Unrelated, so SHOULD be renamed
 };

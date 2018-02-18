@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-goog.provide('unrelated');
+/** @externs */
 
 /**
- * @constructor
- * Implements the same method name as iface, but does not implement it.
- * This allows us to check if renaming affects all instances of a name.
+ * @interface
  */
-unrelated = function() {};
+var iface = function() {};
 
 /**
  * @param {number} bar
  * @return {string}
  */
-unrelated.prototype.foo = function(bar) {
-  return (bar * bar * bar).toString();
-};
+iface.prototype.foo = function(bar) {};
