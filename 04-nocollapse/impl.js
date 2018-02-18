@@ -14,15 +14,24 @@
  * limitations under the License.
  */
 
+goog.provide('impl');
+
 goog.require('iface');
-goog.require('unrelated');
 
 /**
- * @param {iface} x
- * @param {unrelated} y
- * @export
+ * @param {string} prefix
+ * @constructor
+ * @implements {iface}
  */
-var main = function(x, y) {
-  console.log(x.foo(12));  // Plugin interface, should NOT be renamed
-  console.info(y.foo(13));  // Unrelated, so SHOULD be renamed
+impl = function(prefix) {
+  /** @private {string} */
+  this.prefix_ = prefix;
+};
+
+/**
+ * @param {number} bar
+ * @return {string}
+ */
+impl.prototype.foo = function(bar) {
+  return this.prefix_ + (bar * bar).toString();
 };

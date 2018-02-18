@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-goog.require('iface');
-goog.require('unrelated');
+goog.provide('unrelated');
 
 /**
- * @param {iface} x
- * @param {unrelated} y
- * @export
+ * @constructor
  */
-var main = function(x, y) {
-  console.log(x.foo(12));  // Plugin interface, should NOT be renamed
-  console.info(y.foo(13));  // Unrelated, so SHOULD be renamed
+unrelated = function() {};
+
+/**
+ * @param {number} bar
+ * @return {string}
+ */
+unrelated.prototype.foo = function(bar) {
+  return (bar * bar * bar).toString();
 };

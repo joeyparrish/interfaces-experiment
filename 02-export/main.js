@@ -15,11 +15,14 @@
  */
 
 goog.require('iface');
+goog.require('unrelated');
 
 /**
  * @param {iface} x
+ * @param {unrelated} y
  * @export
  */
-var main = function(x) {
-  console.log(x.foo(12));
+var main = function(x, y) {
+  console.log(x.foo(12));  // Plugin interface, should NOT be renamed
+  console.info(y.foo(13));  // Unrelated, so SHOULD be renamed
 };
