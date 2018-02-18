@@ -18,32 +18,23 @@ LOG_CALL=$(grep console.log "$DIR".compiled.js | sed -e 's/.*\(console\.log(.*(1
 INFO_CALL=$(grep console.info "$DIR".compiled.js | sed -e 's/.*\(console\.info(.*(13))\).*/\1/')
 PROTOTYPE_FOO=$(grep prototype.foo "$DIR".compiled.js | sed -e 's/.*[^a-z]\([a-z]*\.prototype\.foo\).*/\1/')
 
-# Print the extracted text.
-echo "$LOG_CALL"
 # Check if the method access was renamed.  It should NOT be.
 if echo "$LOG_CALL" | grep -q 'foo('; then
-  echo "SUCCESS: interface access not renamed"
+  echo "SUCCESS: interface access not renamed: $LOG_CALL"
 else
-  echo "FAIL: interface access renamed"
-  exit 1
+  echo "FAIL: interface access renamed: $LOG_CALL"
 fi
 
-# Print the extracted text.
-echo "$INFO_CALL"
 # Check if the unrelated method with the same name was renamed.  It SHOULD be.
 if echo "$INFO_CALL" | grep -q 'foo('; then
-  echo "FAIL: unrelated method not renamed"
-  exit 1
+  echo "FAIL: unrelated method not renamed: $INFO_CALL"
 else
-  echo "SUCCESS: unrelated method renamed"
+  echo "SUCCESS: unrelated method renamed: $INFO_CALL"
 fi
 
-# Print the extracted text.
-echo "$PROTOTYPE_FOO"
 # Check if the impl prototype was renamed.  It should NOT be.
 if echo "$PROTOTYPE_FOO" | grep -q 'foo'; then
-  echo "SUCCESS: impl exported or not renamed"
+  echo "SUCCESS: impl exported or not renamed: $PROTOTYPE_FOO"
 else
-  echo "FAIL: impl renamed or missing"
-  exit 1
+  echo "FAIL: impl renamed or missing: $PROTOTYPE_FOO"
 fi

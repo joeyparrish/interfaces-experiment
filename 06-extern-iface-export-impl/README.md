@@ -4,4 +4,5 @@ implementation, but it somehow prevents the unrelated class from being renamed.
 This is really strange, and I have no explanation for it.
 
 This is probably the closest model to how Shaka Player is structured today
-(v2.3.x).
+(v2.3.x), and aside from the lack of deprecation warnings, the results are no
+better than `03-expose`.

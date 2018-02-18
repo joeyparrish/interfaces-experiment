@@ -32,6 +32,8 @@ impl = function(prefix) {
  * @param {number} bar
  * @return {string}
  * @export
+ * Often, we export our implementation prototype methods explicity, so that they
+ * can be renamed and still be accessed outside the library.
  */
 impl.prototype.foo = function(bar) {
   return this.prefix_ + (bar * bar).toString();
