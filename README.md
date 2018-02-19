@@ -15,3 +15,12 @@ Goals:
     current plugin system in Shaka Player
 
 [Shaka Player]: https://github.com/google/shaka-player
+
+## TODO
+
+ - `05-extern-iface` works well, but is brittle (see `06-extern-iface-export-impl`).
+   If this could be made less brittle, it would be a good improvement for Shaka Player.
+ - `07-extern-iface-namespace` is already a good improvement for Shaka Player.
+   We could use this technique to put the externs into the same namespace as the library.
+ - Experiment with using structural interfaces instead of record types.
+   See https://github.com/google/closure-compiler/wiki/Structural-Interfaces-in-Closure-Compiler
